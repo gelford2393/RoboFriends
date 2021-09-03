@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import CardList from '../components/CardList'
 import Searchbox from '../components/Searchbox'
 import Scroll from '../components/Scroll'
+import ErrorBoundry from '../components/ErrorBoundry'
 import './App.css'
 
 
@@ -36,12 +37,15 @@ class App extends Component {
         })
          return(
             <div className="tc">
-            {this.state.robots.length === 0 ? <h1>Loading...</h1>:
+            {!this.state.robots.length ? <h1>Loading...</h1>
+            :
             <>
             <h1>Robofriends</h1>
             <Searchbox robots={this.state.robots} handleChange={this.handleChange}/>
             <Scroll>
-                <CardList robots={filteredRobots} />
+                <ErrorBoundry>
+                    <CardList robots={filteredRobots} />
+                </ErrorBoundry>
             </Scroll>
             </>}
              </div>
